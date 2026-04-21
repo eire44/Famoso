@@ -28,7 +28,7 @@ public class MO_TexturesController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             inventoryScreen.SetActive(!inventoryScreen.activeInHierarchy);
         }

@@ -8,11 +8,16 @@ public class FlashEffect : MonoBehaviour
     public Image flashImage;
     public float flashDuration = 1f;
     bool changeTexture = true;
+    float emitFlash = 20f;
+    float time = 0f;
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        time += Time.deltaTime;
+        if (time > emitFlash)
         {
+            time = 0;
+            emitFlash = Random.Range(15f, 20f);
             TriggerFlash();
         }
     }
