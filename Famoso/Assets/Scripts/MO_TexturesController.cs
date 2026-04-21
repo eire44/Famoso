@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class MO_TextureController : MonoBehaviour
+public class MO_TexturesController : MonoBehaviour
 {
     public Transform inventory;
+    public Transform handyInventory;
     List<Transform> slots = new List<Transform>();
-    int slotIndex = 0;
+    List<Transform> handySlots = new List<Transform>();
+    int currentFirstAvailableSlot = 0;
+    int currentFirstAvailableHandySlot = 0;
     public GameObject inventoryScreen;
     // Start is called before the first frame update
     void Start()
@@ -15,6 +19,11 @@ public class MO_TextureController : MonoBehaviour
         foreach (Transform slot in inventory)
         {
             slots.Add(slot);
+        }
+
+        foreach (Transform slot in handyInventory)
+        {
+            handySlots.Add(slot);
         }
     }
 
@@ -33,34 +42,32 @@ public class MO_TextureController : MonoBehaviour
 
         if (texture != null)
         {
-            if(findAvailableSlot() != null)
+            Transform slot = findAvailableSlot(slots);
+            if (slot != null)
             {
-                GameObject obj = new GameObject("ItemImage");
-                Image img = obj.AddComponent<Image>();
-                obj.AddComponent<DragTexture>();
-                obj.transform.SetParent(findAvailableSlot());
+                createInventoryItem(texture, slot, true);
 
-                RectTransform objRect = obj.GetComponent<RectTransform>();
 
-                objRect.anchoredPosition = Vector2.zero;
-
-                objRect.sizeDelta = slots[slotIndex].GetComponent<RectTransform>().sizeDelta;
-
-                objRect.localScale = Vector3.one;
-
-                img.sprite = texture.texture;
+                Transform handySlot = findAvailableSlot(handySlots);
+                if (handySlot != null)
+                {
+                    createInventoryItem(texture, handySlot, false);
+                }
+                else
+                {
+                    Debug.Log("No hay slots disponibles a mano");
+                }
             }
             else
             {
-                Debug.Log("No hay slots disponibles");
+                Debug.Log("No hay slots disponibles en el inventario");
             }
         }
-        slotIndex++;
     }
 
-    Transform findAvailableSlot()
+    Transform findAvailableSlot(List<Transform> slotsList)
     {
-        foreach (Transform slot in slots)
+        foreach (Transform slot in slotsList)
         {
             if (slot.childCount == 0)
             {
@@ -71,9 +78,32 @@ public class MO_TextureController : MonoBehaviour
         return null;
     }
 
+    void createInventoryItem(MO_Texture texture, Transform slot, bool draggable)
+    {
+        GameObject obj = new GameObject("ItemImage");
+        Image img = obj.AddComponent<Image>();
+
+        if(draggable)
+        {
+            obj.AddComponent<DragTexture>();
+        }
+        
+        obj.transform.SetParent(slot);
+
+        RectTransform objRect = obj.GetComponent<RectTransform>();
+
+        objRect.anchoredPosition = Vector2.zero;
+
+        objRect.sizeDelta = slot.GetComponent<RectTransform>().sizeDelta;
+
+        objRect.localScale = Vector3.one;
+
+        img.sprite = texture.texture;
+    }
+
     public void deleteTexture(GameObject textureToDelete)
     {
         Destroy(textureToDelete);
-        slotIndex--;
+        currentFirstAvailableSlot--;
     }
 }

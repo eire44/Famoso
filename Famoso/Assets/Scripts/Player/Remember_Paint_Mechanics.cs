@@ -5,7 +5,7 @@ using UnityEngine;
 public class Remember_Paint_Mechanics : MonoBehaviour
 {
     public LayerMask targetLayer;
-    public MO_TextureController MO_TextureController;
+    public MO_TexturesController MO_TextureController;
 
     void Update()
     {
