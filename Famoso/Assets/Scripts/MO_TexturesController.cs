@@ -9,9 +9,7 @@ public class MO_TexturesController : MonoBehaviour
     public Transform inventory;
     public Transform handyInventory;
     List<Transform> slots = new List<Transform>();
-    List<Transform> handySlots = new List<Transform>();
-    int currentFirstAvailableSlot = 0;
-    int currentFirstAvailableHandySlot = 0;
+    [HideInInspector] public List<Transform> handySlots = new List<Transform>();
     public GameObject inventoryScreen;
     // Start is called before the first frame update
     void Start()
@@ -93,12 +91,11 @@ public class MO_TexturesController : MonoBehaviour
 
         objRect.localScale = Vector3.one;
 
-        img.sprite = texture.currentTexture;
+        img.sprite = texture.currentSprite;
     }
 
     public void deleteTexture(GameObject textureToDelete)
     {
         Destroy(textureToDelete);
-        currentFirstAvailableSlot--;
     }
 }

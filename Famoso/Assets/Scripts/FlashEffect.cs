@@ -75,12 +75,12 @@ public class FlashEffect : MonoBehaviour
                         if (changeTexture)
                         {
                             rend.material.mainTexture = texture.beforeFlashTexture;
-                            texture.currentTexture = texture.textureBeforeFlash;
+                            texture.currentSprite = texture.spriteBeforeFlash;
                         }
                         else
                         {
                             rend.material.mainTexture = texture.afterFlashTexture;
-                            texture.currentTexture = texture.textureAfterFlash;
+                            texture.currentSprite = texture.spriteAfterFlash;
                         }
                     }
                 }

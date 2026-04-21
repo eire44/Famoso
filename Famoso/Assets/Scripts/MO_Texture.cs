@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MO_Texture : MonoBehaviour
 {
-    public Sprite textureBeforeFlash;
-    public Sprite textureAfterFlash = null;
-    [HideInInspector] public Sprite currentTexture;
+    public Sprite spriteBeforeFlash;
+    public Sprite spriteAfterFlash = null;
+    [HideInInspector] public Sprite currentSprite;
     [HideInInspector] public Texture beforeFlashTexture = null;
     public Texture afterFlashTexture = null;
 
@@ -14,6 +14,16 @@ public class MO_Texture : MonoBehaviour
     {
         Renderer rend = GetComponent<Renderer>();
         beforeFlashTexture = rend.material.mainTexture;
-        currentTexture = textureBeforeFlash;
+        currentSprite = spriteBeforeFlash;
+
+        if(spriteBeforeFlash != null && beforeFlashTexture != null)
+        {
+            FindObjectOfType<Sprite_To_Texture_Dic>().convertSpriteToTexture[spriteBeforeFlash] = beforeFlashTexture;
+        }
+
+        if (spriteAfterFlash != null && afterFlashTexture != null)
+        {
+            FindObjectOfType<Sprite_To_Texture_Dic>().convertSpriteToTexture[spriteAfterFlash] = afterFlashTexture;
+        }
     }
 }
