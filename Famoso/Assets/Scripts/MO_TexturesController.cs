@@ -8,7 +8,7 @@ public class MO_TexturesController : MonoBehaviour
 {
     public Transform inventory;
     public Transform handyInventory;
-    List<Transform> slots = new List<Transform>();
+    [HideInInspector] public List<Transform> slots = new List<Transform>();
     [HideInInspector] public List<Transform> handySlots = new List<Transform>();
     public GameObject inventoryScreen;
     // Start is called before the first frame update

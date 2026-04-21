@@ -25,6 +25,7 @@ public class FlashEffect : MonoBehaviour
     IEnumerator FlashCoroutine()
     {
         changeTexture = !changeTexture;
+        flashImage.gameObject.SetActive(true);
         float timer = 0f;
 
         while (timer < flashDuration)
@@ -55,6 +56,7 @@ public class FlashEffect : MonoBehaviour
         }
 
         flashImage.color = new Color(1f, 1f, 1f, 0f);
+        flashImage.gameObject.SetActive(false);
     }
 
     void changeTextures()

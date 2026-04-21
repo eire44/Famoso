@@ -11,11 +11,12 @@ public class Remember_Paint_Mechanics : MonoBehaviour
     Transform currentSelectedSlot;
     Texture currentSelectedTexture;
     Sprite_To_Texture_Dic Sprite_To_Texture_Dic;
+    int currentSelectedSlot_Index = 0;
 
     private void Start()
     {
         Sprite_To_Texture_Dic = FindObjectOfType<Sprite_To_Texture_Dic>();
-        SelectSlot(0);
+        //bordes de diferentes colores segun si es memorable o paintable
     }
 
     void Update()
@@ -33,8 +34,9 @@ public class Remember_Paint_Mechanics : MonoBehaviour
                 } 
                 else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Paintable Objects"))
                 {
+                    SelectSlot(currentSelectedSlot_Index);
                     Renderer rend = hit.collider.transform.GetComponent<Renderer>();
-                    rend.material.mainTexture = currentSelectedTexture; //que ahora el paintable sea memorable tambien?
+                    rend.material.mainTexture = currentSelectedTexture;
                 }
                 
             }
@@ -44,7 +46,7 @@ public class Remember_Paint_Mechanics : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
             {
-                SelectSlot(i); //que solo guarde el numero y obtenga la texture cuando apriete para pintar?
+                currentSelectedSlot_Index = i;
             }
         }
     }
