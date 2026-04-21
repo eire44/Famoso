@@ -7,6 +7,7 @@ public class FlashEffect : MonoBehaviour
 {
     public Image flashImage;
     public float flashDuration = 1f;
+    bool changeTexture = true;
 
     private void Update()
     {
@@ -23,6 +24,7 @@ public class FlashEffect : MonoBehaviour
 
     IEnumerator FlashCoroutine()
     {
+        changeTexture = !changeTexture;
         float timer = 0f;
 
         while (timer < flashDuration)
@@ -34,7 +36,10 @@ public class FlashEffect : MonoBehaviour
 
             yield return null;
         }
-        
+
+        changeTextures();
+
+
         timer = 0f;
 
         flashImage.color = new Color(1f, 1f, 1f, 1f);
@@ -50,5 +55,36 @@ public class FlashEffect : MonoBehaviour
         }
 
         flashImage.color = new Color(1f, 1f, 1f, 0f);
+    }
+
+    void changeTextures()
+    {
+        int layer = LayerMask.NameToLayer("Memorable Objects");
+
+        foreach (GameObject obj in FindObjectsOfType<GameObject>())
+        {
+            if (obj.layer == layer)
+            {
+                MO_Texture texture = obj.GetComponent<MO_Texture>();
+
+                if (texture != null)
+                {
+                    if(texture.afterFlashTexture != null)
+                    {
+                        Renderer rend = texture.GetComponent<Renderer>();
+                        if (changeTexture)
+                        {
+                            rend.material.mainTexture = texture.beforeFlashTexture;
+                            texture.currentTexture = texture.textureBeforeFlash;
+                        }
+                        else
+                        {
+                            rend.material.mainTexture = texture.afterFlashTexture;
+                            texture.currentTexture = texture.textureAfterFlash;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

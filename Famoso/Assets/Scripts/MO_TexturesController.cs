@@ -42,25 +42,24 @@ public class MO_TexturesController : MonoBehaviour
 
         if (texture != null)
         {
-            Transform slot = findAvailableSlot(slots);
-            if (slot != null)
+            Transform handySlot = findAvailableSlot(handySlots);
+            if (handySlot != null)
             {
-                createInventoryItem(texture, slot, true);
-
-
-                Transform handySlot = findAvailableSlot(handySlots);
-                if (handySlot != null)
-                {
-                    createInventoryItem(texture, handySlot, false);
-                }
-                else
-                {
-                    Debug.Log("No hay slots disponibles a mano");
-                }
+                createInventoryItem(texture, handySlot);
             }
             else
             {
-                Debug.Log("No hay slots disponibles en el inventario");
+                Debug.Log("No hay slots disponibles a mano");
+
+                Transform slot = findAvailableSlot(slots);
+                if (slot != null)
+                {
+                    createInventoryItem(texture, slot);
+                }
+                else
+                {
+                    Debug.Log("No hay slots disponibles en el inventario");
+                }
             }
         }
     }
@@ -78,15 +77,11 @@ public class MO_TexturesController : MonoBehaviour
         return null;
     }
 
-    void createInventoryItem(MO_Texture texture, Transform slot, bool draggable)
+    void createInventoryItem(MO_Texture texture, Transform slot)
     {
         GameObject obj = new GameObject("ItemImage");
         Image img = obj.AddComponent<Image>();
-
-        if(draggable)
-        {
-            obj.AddComponent<DragTexture>();
-        }
+        obj.AddComponent<DragTexture>();
         
         obj.transform.SetParent(slot);
 
@@ -98,7 +93,7 @@ public class MO_TexturesController : MonoBehaviour
 
         objRect.localScale = Vector3.one;
 
-        img.sprite = texture.texture;
+        img.sprite = texture.currentTexture;
     }
 
     public void deleteTexture(GameObject textureToDelete)

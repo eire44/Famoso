@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class DropTexture : MonoBehaviour, IDropHandler
 {
-    bool occupiedSlot = false;
     public void OnDrop(PointerEventData eventData)
     {
         GameObject dropped = eventData.pointerDrag;
@@ -16,20 +15,18 @@ public class DropTexture : MonoBehaviour, IDropHandler
         {
             if(transform.childCount == 0)
             {
-                GameObject obj = new GameObject("ItemImage");
-                Image img = obj.AddComponent<Image>();
-                obj.transform.SetParent(transform);
+                dropped.GetComponent<DragTexture>().dropped = true;
+                RectTransform pieceRect = dropped.GetComponent<RectTransform>();
+                RectTransform zoneRect = GetComponent<RectTransform>();
 
-                RectTransform objRect = obj.GetComponent<RectTransform>();
+                pieceRect.SetParent(zoneRect);
 
-                objRect.anchoredPosition = Vector2.zero;
+                pieceRect.anchoredPosition = Vector2.zero;
 
-                objRect.sizeDelta = transform.GetComponent<RectTransform>().sizeDelta;
+                pieceRect.sizeDelta = zoneRect.sizeDelta;
 
-                objRect.localScale = Vector3.one;
+                pieceRect.localScale = Vector3.one;
 
-                //MO_Texture texture = memorableObject.GetComponent<MO_Texture>();
-                //img.sprite = texture.texture;
             }
         } 
         else if (gameObject.CompareTag("Trash"))

@@ -11,6 +11,7 @@ public class DragTexture : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     RectTransform rectTransform;
     Vector2 originalSize;
     Vector3 originalScale;
+    [HideInInspector] public bool dropped = false;
 
     void Awake()
     {
@@ -36,6 +37,7 @@ public class DragTexture : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         rectTransform.sizeDelta = originalSize;
         rectTransform.localScale = originalScale;
+        dropped = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -45,7 +47,11 @@ public class DragTexture : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        transform.SetParent(parentAfterDrag);
+        if (!dropped)
+        {
+            transform.SetParent(parentAfterDrag);
+        }
+
         image.raycastTarget = true;
 
         foreach (var graphic in GetComponentsInChildren<UnityEngine.UI.Graphic>())
