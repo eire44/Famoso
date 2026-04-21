@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Doors_Controller : MonoBehaviour
 {
     Sprite characterToSave;
-    public LayerMask targetLayer; //seleccionar doors
+    public LayerMask targetLayer;
     MO_TexturesController textureController;
     // Start is called before the first frame update
     void Start()
