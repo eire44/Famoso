@@ -33,30 +33,47 @@ public class MO_TextureController : MonoBehaviour
 
         if (texture != null)
         {
-            GameObject obj = new GameObject("ItemImage");
-            Image img = obj.AddComponent<Image>();
-            obj.transform.SetParent(slots[slotIndex]);
+            if(findAvailableSlot() != null)
+            {
+                GameObject obj = new GameObject("ItemImage");
+                Image img = obj.AddComponent<Image>();
+                obj.AddComponent<DragTexture>();
+                obj.transform.SetParent(findAvailableSlot());
 
-            RectTransform objRect = obj.GetComponent<RectTransform>();
+                RectTransform objRect = obj.GetComponent<RectTransform>();
 
-            objRect.anchoredPosition = Vector2.zero;
+                objRect.anchoredPosition = Vector2.zero;
 
-            objRect.sizeDelta = slots[slotIndex].GetComponent<RectTransform>().sizeDelta;
+                objRect.sizeDelta = slots[slotIndex].GetComponent<RectTransform>().sizeDelta;
 
-            objRect.localScale = Vector3.one;
+                objRect.localScale = Vector3.one;
 
-            img.sprite = texture.texture;
-
-            //RectTransform rt = obj.GetComponent<RectTransform>();
-            //rt.sizeDelta = new Vector2(80, 80);
-            //rt.localScale = Vector3.one;
-
+                img.sprite = texture.texture;
+            }
+            else
+            {
+                Debug.Log("No hay slots disponibles");
+            }
         }
         slotIndex++;
     }
 
-    public void deleteTexture()
+    Transform findAvailableSlot()
     {
+        foreach (Transform slot in slots)
+        {
+            if (slot.childCount == 0)
+            {
+                return slot;
+            }
+        }
+
+        return null;
+    }
+
+    public void deleteTexture(GameObject textureToDelete)
+    {
+        Destroy(textureToDelete);
         slotIndex--;
     }
 }
