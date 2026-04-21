@@ -7,7 +7,7 @@ public class Mov_Controller : MonoBehaviour
     public float moveSpeed = 5f;
     public float gravity = -9.81f;
 
-    [HideInInspector] public float mouseSensitivity = 100f;
+    [HideInInspector] public float mouseSensitivity = 300f;
     public Transform cameraTransform;
 
     private float xRotation = 0f;
@@ -21,7 +21,7 @@ public class Mov_Controller : MonoBehaviour
     {
         startPosition = transform.position;
         controller = GetComponent<CharacterController>();
-        mouseSensitivity = PlayerPrefs.GetFloat("Sensitivity", 100f);
+        mouseSensitivity = PlayerPrefs.GetFloat("Sensitivity", 300f);
     }
 
     void Update()
