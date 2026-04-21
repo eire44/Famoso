@@ -5,6 +5,7 @@ using UnityEngine;
 public class Remember_Paint_Mechanics : MonoBehaviour
 {
     public LayerMask targetLayer;
+    public MO_TextureController MO_TextureController;
 
     void Update()
     {
@@ -15,7 +16,7 @@ public class Remember_Paint_Mechanics : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, targetLayer))
             {
-                Debug.Log("Impactó un objeto de la layer deseada: " + hit.collider.name);
+                MO_TextureController.saveTexture(hit.collider.gameObject);
             }
         }
     }
