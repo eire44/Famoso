@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Doors_Controller : MonoBehaviour
 {
     Sprite characterToSave;
-    public LayerMask targetLayer;
+    //public LayerMask targetLayer;
     MO_TexturesController textureController;
+    public GameObject room;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,27 +27,49 @@ public class Doors_Controller : MonoBehaviour
             //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, targetLayer))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                Doors_Open door = hit.collider.gameObject.GetComponent<Doors_Open>();
-                if(door != null)
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Doors"))
                 {
-                    characterToSave = door.characterToSave;
-                }
-                
-                if (checkIfCharacterSaved())
-                {
-                    door.TriggerBlink();
-                    //que atraviese la puerta
-                }
-                else
-                {
-                    Debug.Log("falta algo por recordar");
-                    //mensaje de que falta algo por recordar
+                    Doors_Open door = hit.collider.gameObject.GetComponent<Doors_Open>();
+                    if (door != null)
+                    {
+                        characterToSave = door.characterToSave;
+                    }
+
+                    if (checkIfAllPainted())
+                    {
+                        door.TriggerBlink();
+                        //que atraviese la puerta
+                    }
+                    else
+                    {
+                        Debug.Log("falta algo por recordar");
+                        //mensaje de que falta algo por recordar
+                    }
                 }
             }
         }
     }
+
+    bool checkIfAllPainted()
+    {
+        foreach (Transform child in room.transform)
+        {
+            if(child.gameObject.layer == LayerMask.NameToLayer("Paintable Objects"))
+            {
+                Renderer rend = child.GetComponent<Renderer>();
+                if (rend.material.mainTexture == null)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    
 
     bool checkIfCharacterSaved()
     {

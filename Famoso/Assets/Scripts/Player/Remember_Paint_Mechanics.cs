@@ -29,7 +29,7 @@ public class Remember_Paint_Mechanics : MonoBehaviour
             //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, targetLayer))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Memorable Objects"))
                 {
