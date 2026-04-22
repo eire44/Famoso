@@ -35,10 +35,10 @@ public class Mov_Controller : MonoBehaviour
             moveSpeed = 8f;
         }
 
-        if (transform.position.y < fallLimit)
-        {
-            Respawn();
-        }
+        //if (transform.position.y < fallLimit)
+        //{
+        //    Respawn();
+        //}
 
         Move();
         Look();

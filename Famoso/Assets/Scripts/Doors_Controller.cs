@@ -7,9 +7,8 @@ using UnityEngine.UI;
 public class Doors_Controller : MonoBehaviour
 {
     Sprite characterToSave;
-    //public LayerMask targetLayer;
     MO_TexturesController textureController;
-    public GameObject room;
+    [HideInInspector] public GameObject paintableObjects;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +39,6 @@ public class Doors_Controller : MonoBehaviour
                     if (checkIfAllPainted())
                     {
                         door.TriggerBlink();
-                        //que atraviese la puerta
                     }
                     else
                     {
@@ -54,9 +52,9 @@ public class Doors_Controller : MonoBehaviour
 
     bool checkIfAllPainted()
     {
-        foreach (Transform child in room.transform)
+        foreach (Transform child in paintableObjects.transform)
         {
-            if(child.gameObject.layer == LayerMask.NameToLayer("Paintable Objects"))
+            if (child.gameObject.layer == LayerMask.NameToLayer("Paintable Objects"))
             {
                 Renderer rend = child.GetComponent<Renderer>();
                 if (rend.material.mainTexture == null)

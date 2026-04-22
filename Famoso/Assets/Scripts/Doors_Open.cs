@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Doors_Open : MonoBehaviour
 {
     public Sprite characterToSave;
-
+    public GameManager gameManager;
     public Image blinkImage;
     public float blinkDuration = 1f;
 
@@ -46,6 +46,7 @@ public class Doors_Open : MonoBehaviour
             yield return null;
         }
 
+        gameManager.changeRoom();
 
         timer = 0f;
 
@@ -63,11 +64,5 @@ public class Doors_Open : MonoBehaviour
 
         blinkImage.color = new Color(0f, 0f, 0f, 0f);
         blinkImage.gameObject.SetActive(false);
-    }
-
-    void changePlayerPosition()
-    {
-        //cambiar porsicion player
-        //desvanecer puerta?
     }
 }
