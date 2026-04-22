@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     {
         doors_controller = FindObjectOfType<Doors_Controller>();
         doors_controller.paintableObjects = rooms_PaintableObjects[roomIndex];
-        //player.position = playerPositions[roomIndex].position;
+        player.position = playerPositions[roomIndex].position;
     }
 
     public void changeRoom()
