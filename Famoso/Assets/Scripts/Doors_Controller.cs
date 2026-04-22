@@ -52,13 +52,16 @@ public class Doors_Controller : MonoBehaviour
 
     bool checkIfAllPainted()
     {
+        int index = 0;
         foreach (Transform child in paintableObjects.transform)
         {
             if (child.gameObject.layer == LayerMask.NameToLayer("Paintable Objects"))
             {
+                index++;
                 Renderer rend = child.GetComponent<Renderer>();
                 if (rend.material.mainTexture == null)
                 {
+                    Debug.Log(index);
                     return false;
                 }
             }

@@ -19,16 +19,19 @@ public class GameManager : MonoBehaviour
 
     public void changeRoom()
     {
-        roomIndex++;
-        doors_controller.paintableObjects = rooms_PaintableObjects[roomIndex];
-        //player.position = playerPositions[roomIndex].position;
+        if (rooms_PaintableObjects[roomIndex+1] != null) //no sirve de nada jaja
+        {
+            roomIndex++;
+            doors_controller.paintableObjects = rooms_PaintableObjects[roomIndex];
+            //player.position = playerPositions[roomIndex].position;
 
-        CharacterController cc = player.GetComponent<CharacterController>();
+            CharacterController cc = player.GetComponent<CharacterController>();
 
-        if (cc != null) cc.enabled = false;
+            if (cc != null) cc.enabled = false;
 
-        player.position = playerPositions[roomIndex].position;
+            player.position = playerPositions[roomIndex].position;
 
-        if (cc != null) cc.enabled = true;
+            if (cc != null) cc.enabled = true;
+        }
     }
 }
