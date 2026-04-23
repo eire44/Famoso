@@ -9,9 +9,10 @@ public class MO_Texture : MonoBehaviour
     [HideInInspector] public Sprite currentSprite;
     [HideInInspector] public Texture beforeFlashTexture = null;
     public Texture afterFlashTexture = null;
-
+    Dialogs_Controller dialogsController;
     private void Start()
     {
+        dialogsController = FindObjectOfType<Dialogs_Controller>();
         Renderer rend = GetComponent<Renderer>();
         beforeFlashTexture = rend.material.mainTexture;
         currentSprite = spriteBeforeFlash;

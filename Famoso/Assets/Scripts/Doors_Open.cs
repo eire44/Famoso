@@ -15,6 +15,7 @@ public class Doors_Open : MonoBehaviour
     //float DoorOpenAngle = -90.0f;
     //public Transform door;
     //public float smooth = 1.0f;
+
     private void Update()
     {
         //if (open)
