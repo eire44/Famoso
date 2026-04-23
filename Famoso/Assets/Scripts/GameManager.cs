@@ -8,17 +8,22 @@ public class GameManager : MonoBehaviour
     public GameObject[] rooms_PaintableObjects;
     public Transform player;
     Doors_Controller doors_controller;
+    Dialogs_Controller dialogs_controller;
     int roomIndex = 0;
 
     private void Start()
     {
         doors_controller = FindObjectOfType<Doors_Controller>();
+        dialogs_controller = FindObjectOfType<Dialogs_Controller>();
         doors_controller.paintableObjects = rooms_PaintableObjects[roomIndex];
         player.position = playerPositions[roomIndex].position;
 
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        dialogs_controller.changeDialogsSet(roomIndex);
+        //dialogs_controller.startMonologue();
     }
 
     public void changeRoom()
@@ -27,7 +32,6 @@ public class GameManager : MonoBehaviour
         {
             roomIndex++;
             doors_controller.paintableObjects = rooms_PaintableObjects[roomIndex];
-            //player.position = playerPositions[roomIndex].position;
 
             CharacterController cc = player.GetComponent<CharacterController>();
 
@@ -36,6 +40,8 @@ public class GameManager : MonoBehaviour
             player.position = playerPositions[roomIndex].position;
 
             if (cc != null) cc.enabled = true;
+
+            dialogs_controller.changeDialogsSet(roomIndex);
         }
         else
         {

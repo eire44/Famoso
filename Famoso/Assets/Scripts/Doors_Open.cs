@@ -9,6 +9,7 @@ public class Doors_Open : MonoBehaviour
     public GameManager gameManager;
     public Image blinkImage;
     public float blinkDuration = 1f;
+    public string doorIndicationText = "";
 
     //bool open = false;
     //float DoorOpenAngle = -90.0f;
