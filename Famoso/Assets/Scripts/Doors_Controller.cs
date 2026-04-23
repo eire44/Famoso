@@ -8,11 +8,13 @@ public class Doors_Controller : MonoBehaviour
 {
     Sprite characterToSave;
     MO_TexturesController textureController;
+    Dialogs_Controller dialogsController;
     [HideInInspector] public GameObject paintableObjects;
     // Start is called before the first frame update
     void Start()
     {
         textureController = FindObjectOfType<MO_TexturesController>();
+        dialogsController = FindObjectOfType<Dialogs_Controller>();
     }
 
     // Update is called once per frame
@@ -42,8 +44,8 @@ public class Doors_Controller : MonoBehaviour
                     }
                     else
                     {
+                        dialogsController.showIndication(door.doorIndicationText);
                         Debug.Log("falta algo por recordar");
-                        //mensaje de que falta algo por recordar
                     }
                 }
             }

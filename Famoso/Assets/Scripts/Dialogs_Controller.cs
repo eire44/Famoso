@@ -11,15 +11,19 @@ public class Dialogs_Controller : MonoBehaviour
     public List<DialogsSet> dialogs = new List<DialogsSet>();
     public TMP_Text txtDialogs;
     public TMP_Text txtIndications;
-    string[] currentDialogsSet;
-    [HideInInspector] public int dialogIndex = 0;
+    public TMP_Text txtInstructions;
+    int dialogIndex = 0;
 
     public float timeBetweenLines = 3f;
     public float typingSpeed = 0.02f;
     bool isTyping = false;
     Coroutine dialogueCoroutine;
-    //en cada caso poner indicaciones de qué presionar
+    MO_TexturesController MO_TexturesController;
 
+    private void Start()
+    {
+        MO_TexturesController = FindObjectOfType<MO_TexturesController>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -33,13 +37,10 @@ public class Dialogs_Controller : MonoBehaviour
         {
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Doors"))
             {
-                Doors_Open door = hit.collider.gameObject.GetComponent<Doors_Open>();
-                if(door != null)
-                {
-                    showIndication(door.doorIndicationText);
-                }
+                showInstructions("Press E to open");
             } else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Characters"))
             {
+                txtInstructions.gameObject.SetActive(false);
                 CharactersTexts characterSign = hit.collider.gameObject.GetComponent<CharactersTexts>();
                 if (characterSign != null)
                 {
@@ -50,7 +51,29 @@ public class Dialogs_Controller : MonoBehaviour
             {
                 txtDialogs.gameObject.SetActive(true);
                 txtIndications.gameObject.SetActive(false);
+
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Memorable Objects"))
+                {
+                    showInstructions("Press E to save pattern");
+                }
+                else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Paintable Objects"))
+                {
+                    showInstructions("Press E to paint");
+                }
+                else
+                {
+                    txtInstructions.gameObject.SetActive(false);
+                }
             }
+        }
+    }
+
+    public void showInstructions(string instructionsText)
+    {
+        if(!MO_TexturesController.showingInventoryText)
+        {
+            txtInstructions.gameObject.SetActive(true);
+            txtInstructions.text = instructionsText;
         }
     }
 
@@ -61,7 +84,6 @@ public class Dialogs_Controller : MonoBehaviour
 
         dialogIndex = 0;
         dialogueCoroutine = StartCoroutine(ShowDialogue(dialogs[roomIndex].dialogsSet));
-        //currentDialogsSet = dialogs[roomIndex].dialogsSet;
     }
 
     public void showIndication (string indicationText)
@@ -69,11 +91,6 @@ public class Dialogs_Controller : MonoBehaviour
         txtDialogs.gameObject.SetActive(false);
         txtIndications.gameObject.SetActive(true);
         txtIndications.text = indicationText;
-    }
-
-    public void startMonologue()
-    {
-        //StartCoroutine(ShowDialogue());
     }
 
     IEnumerator ShowDialogue(string[] currentDialogsSet)
@@ -90,7 +107,6 @@ public class Dialogs_Controller : MonoBehaviour
                     yield return null;
                     continue;
                 }
-
                 timer += Time.deltaTime;
 
                 if (Input.GetKeyDown(KeyCode.Space))
