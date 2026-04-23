@@ -15,11 +15,15 @@ public class GameManager : MonoBehaviour
         doors_controller = FindObjectOfType<Doors_Controller>();
         doors_controller.paintableObjects = rooms_PaintableObjects[roomIndex];
         player.position = playerPositions[roomIndex].position;
+
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void changeRoom()
     {
-        if (rooms_PaintableObjects[roomIndex+1] != null) //no sirve de nada jaja
+        if (roomIndex < rooms_PaintableObjects.Length)
         {
             roomIndex++;
             doors_controller.paintableObjects = rooms_PaintableObjects[roomIndex];
@@ -32,6 +36,10 @@ public class GameManager : MonoBehaviour
             player.position = playerPositions[roomIndex].position;
 
             if (cc != null) cc.enabled = true;
+        }
+        else
+        {
+            //abrir fin del juego
         }
     }
 }

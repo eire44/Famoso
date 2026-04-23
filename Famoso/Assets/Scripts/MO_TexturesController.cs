@@ -31,6 +31,19 @@ public class MO_TexturesController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             inventoryScreen.SetActive(!inventoryScreen.activeInHierarchy);
+
+            if (inventoryScreen.activeInHierarchy)
+            {
+                Time.timeScale = 0f;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
     }
 
