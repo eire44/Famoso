@@ -16,6 +16,7 @@ public class Remember_Paint_Mechanics : MonoBehaviour
     private void Start()
     {
         Sprite_To_Texture_Dic = FindObjectOfType<Sprite_To_Texture_Dic>();
+        SelectSlot(currentSelectedSlot_Index);
         //bordes de diferentes colores segun si es memorable o paintable
     }
 

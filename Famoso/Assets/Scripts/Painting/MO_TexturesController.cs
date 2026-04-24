@@ -72,7 +72,6 @@ public class MO_TexturesController : MonoBehaviour
                 if(firstTextureSaved)
                 {
                     firstTextureSaved = false;
-                    Debug.Log("primer texture");
                     remember_Paint_Mechanics.outlineSelectedHandySlot(remember_Paint_Mechanics.currentSelectedSlot_Index, true);
                 }
                 createInventoryItem(texture, handySlot);

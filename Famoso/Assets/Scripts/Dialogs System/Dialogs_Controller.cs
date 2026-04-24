@@ -17,7 +17,6 @@ public class Dialogs_Controller : MonoBehaviour
 
     public float timeBetweenLines = 3f;
     public float typingSpeed = 0.02f;
-    bool isTyping = false;
     Coroutine dialogueCoroutine;
     MO_TexturesController MO_TexturesController;
 
@@ -45,11 +44,11 @@ public class Dialogs_Controller : MonoBehaviour
                 CharactersTexts characterSign = hit.collider.gameObject.GetComponent<CharactersTexts>();
                 if (characterSign != null)
                 {
-                    if(characterSign.firstTimeViewed)
-                    {
-                        characterSign.firstTimeViewed = false;
+                    //if(characterSign.firstTimeViewed)
+                    //{
+                    //    characterSign.firstTimeViewed = false;
                         audio_Characters.Play();
-                    }
+                    //}
                     showIndication(characterSign.signIndicationText);
                 }
             }
@@ -89,7 +88,11 @@ public class Dialogs_Controller : MonoBehaviour
             StopCoroutine(dialogueCoroutine);
 
         dialogIndex = 0;
-        dialogueCoroutine = StartCoroutine(ShowDialogue(dialogs[roomIndex].dialogsSet));
+        if(dialogs[roomIndex].dialogsSet != null)
+        {
+            dialogueCoroutine = StartCoroutine(ShowDialogue(dialogs[roomIndex].dialogsSet));
+        }
+        
     }
 
     public void showIndication (string indicationText)
@@ -129,7 +132,6 @@ public class Dialogs_Controller : MonoBehaviour
 
     IEnumerator TypeLine(string line)
     {
-        isTyping = true;
         txtDialogs.text = "";
 
         foreach (char c in line)
@@ -146,7 +148,5 @@ public class Dialogs_Controller : MonoBehaviour
                 break;
             }
         }
-
-        isTyping = false;
     }
 }

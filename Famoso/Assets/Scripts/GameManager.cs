@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     Doors_Controller doors_controller;
     Dialogs_Controller dialogs_controller;
     int roomIndex = 0;
+    scenes_progression scenes_Progression;
 
     private void Start()
     {
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
         dialogs_controller = FindObjectOfType<Dialogs_Controller>();
         doors_controller.paintableObjects = rooms_PaintableObjects[roomIndex];
         player.position = playerPositions[roomIndex].position;
+        scenes_Progression = FindObjectOfType<scenes_progression>();
 
 
         Cursor.visible = false;
@@ -45,7 +47,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            //abrir fin del juego
+            UI_Controller.gameCompleted = true;
+            scenes_Progression.triggerHideWorld();
         }
     }
 }
