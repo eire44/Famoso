@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class Doors_Open : MonoBehaviour
 {
     public Sprite characterToSave;
@@ -10,11 +11,16 @@ public class Doors_Open : MonoBehaviour
     public Image blinkImage;
     public float blinkDuration = 1f;
     public string doorIndicationText = "";
+    AudioSource audiosource;
 
     //bool open = false;
     //float DoorOpenAngle = -90.0f;
     //public Transform door;
     //public float smooth = 1.0f;
+    private void Start()
+    {
+        audiosource = GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
@@ -34,7 +40,7 @@ public class Doors_Open : MonoBehaviour
 
     IEnumerator BlinkCoroutine()
     {
-        //sonido de puerta que se abre
+        audiosource.Play();
         blinkImage.gameObject.SetActive(true);
         float timer = 0f;
 

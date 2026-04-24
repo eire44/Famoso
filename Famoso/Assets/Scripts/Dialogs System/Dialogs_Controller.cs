@@ -8,6 +8,7 @@ using UnityEditor.Rendering;
 
 public class Dialogs_Controller : MonoBehaviour
 {
+    public AudioSource audio_Characters;
     public List<DialogsSet> dialogs = new List<DialogsSet>();
     public TMP_Text txtDialogs;
     public TMP_Text txtIndications;
@@ -19,11 +20,6 @@ public class Dialogs_Controller : MonoBehaviour
     bool isTyping = false;
     Coroutine dialogueCoroutine;
     MO_TexturesController MO_TexturesController;
-
-    [HideInInspector] public bool MO_ShowOutline = false;
-    [HideInInspector] public bool PO_ShowOutline = false;
-    [HideInInspector] public bool Ch_ShowOutline = false;
-    [HideInInspector] public bool Do_ShowOutline = false;
 
     private void Start()
     {
@@ -42,21 +38,18 @@ public class Dialogs_Controller : MonoBehaviour
         {
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Doors"))
             {
-                Do_ShowOutline = true;
-                MO_ShowOutline = false;
-                PO_ShowOutline = false;
-                Ch_ShowOutline = false;
                 showInstructions("Press E to open");
             } else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Characters"))
             {
-                Ch_ShowOutline = true;
-                MO_ShowOutline = false;
-                PO_ShowOutline = false;
-                Do_ShowOutline = false;
                 txtInstructions.gameObject.SetActive(false);
                 CharactersTexts characterSign = hit.collider.gameObject.GetComponent<CharactersTexts>();
                 if (characterSign != null)
                 {
+                    if(characterSign.firstTimeViewed)
+                    {
+                        characterSign.firstTimeViewed = false;
+                        audio_Characters.Play();
+                    }
                     showIndication(characterSign.signIndicationText);
                 }
             }
@@ -67,26 +60,14 @@ public class Dialogs_Controller : MonoBehaviour
 
                 if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Memorable Objects"))
                 {
-                    MO_ShowOutline = true;
-                    PO_ShowOutline = false;
-                    Ch_ShowOutline = false;
-                    Do_ShowOutline = false;
                     showInstructions("Press E to save pattern");
                 }
                 else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Paintable Objects"))
                 {
-                    PO_ShowOutline = true;
-                    MO_ShowOutline = false;
-                    Ch_ShowOutline = false;
-                    Do_ShowOutline = false;
                     showInstructions("Press E to paint");
                 }
                 else
                 {
-                    MO_ShowOutline = false;
-                    PO_ShowOutline = false;
-                    Ch_ShowOutline = false;
-                    Do_ShowOutline = false;
                     txtInstructions.gameObject.SetActive(false);
                 }
             }

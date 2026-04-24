@@ -15,10 +15,13 @@ public class MO_TexturesController : MonoBehaviour
     bool showInventory = true;
     [HideInInspector] public bool showingInventoryText = false;
     Dialogs_Controller dialogs_Controller;
+    bool firstTextureSaved = true;
+    Remember_Paint_Mechanics remember_Paint_Mechanics;
     // Start is called before the first frame update
     void Start()
     {
         dialogs_Controller = FindObjectOfType<Dialogs_Controller>();
+        remember_Paint_Mechanics = FindObjectOfType<Remember_Paint_Mechanics>();
 
         foreach (Transform slot in inventory)
         {
@@ -66,6 +69,12 @@ public class MO_TexturesController : MonoBehaviour
             Transform handySlot = findAvailableSlot(handySlots);
             if (handySlot != null)
             {
+                if(firstTextureSaved)
+                {
+                    firstTextureSaved = false;
+                    Debug.Log("primer texture");
+                    remember_Paint_Mechanics.outlineSelectedHandySlot(remember_Paint_Mechanics.currentSelectedSlot_Index, true);
+                }
                 createInventoryItem(texture, handySlot);
             }
             else

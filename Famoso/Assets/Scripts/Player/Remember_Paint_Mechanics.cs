@@ -11,7 +11,7 @@ public class Remember_Paint_Mechanics : MonoBehaviour
     Transform currentSelectedSlot;
     Texture currentSelectedTexture;
     Sprite_To_Texture_Dic Sprite_To_Texture_Dic;
-    int currentSelectedSlot_Index = 0;
+    [HideInInspector] public int currentSelectedSlot_Index = 0;
 
     private void Start()
     {
@@ -37,7 +37,6 @@ public class Remember_Paint_Mechanics : MonoBehaviour
                 } 
                 else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Paintable Objects"))
                 {
-                    SelectSlot(currentSelectedSlot_Index);
                     Renderer rend = hit.collider.transform.GetComponent<Renderer>();
                     rend.material.mainTexture = currentSelectedTexture;
                 }
@@ -49,21 +48,49 @@ public class Remember_Paint_Mechanics : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
             {
+                int previousSelectedIndex = currentSelectedSlot_Index;
+
+                //MO_TextureController.handySlots[currentSelectedSlot_Index].GetComponent<Outline>().enabled = false;
                 currentSelectedSlot_Index = i;
+                SelectSlot(currentSelectedSlot_Index);
+                //if (SelectSlot(currentSelectedSlot_Index))
+                //{
+                //    outlineSelectedHandySlot(previousSelectedIndex, false);
+                //}
             }
         }
     }
 
-    void SelectSlot(int i)
+    bool SelectSlot(int i)
     {
         currentSelectedSlot = MO_TextureController.handySlots[i];
+
+
         if (currentSelectedSlot.childCount == 1)
         {
             Image img = currentSelectedSlot.GetChild(0).GetComponent<Image>();
             if(img != null)
             {
                 currentSelectedTexture = Sprite_To_Texture_Dic.convertSpriteToTexture[img.sprite];
+
+                currentSelectedSlot.GetComponent<Outline>().enabled = true;
+                for (int j = 0; j < MO_TextureController.handySlots.Count; j++)
+                {
+                    if (j != i)
+                    {
+                        MO_TextureController.handySlots[j].GetComponent<Outline>().enabled = false;
+                    }
+                }
+                //outlineSelectedHandySlot(currentSelectedSlot_Index, true);
+                return true;
             }
         }
+
+        return false;
+    }
+
+    public void outlineSelectedHandySlot(int slotIndex, bool enable)
+    {
+        MO_TextureController.handySlots[slotIndex].GetComponent<Outline>().enabled = enable;
     }
 }
