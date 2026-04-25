@@ -5,5 +5,4 @@ using UnityEngine;
 public class CharactersTexts : MonoBehaviour
 {
     public string signIndicationText = "";
-    public bool firstTimeViewed = true;
 }

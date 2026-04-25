@@ -63,7 +63,6 @@ public class Doors_Controller : MonoBehaviour
                 Renderer rend = child.GetComponent<Renderer>();
                 if (rend.material.mainTexture == null)
                 {
-                    Debug.Log(index);
                     return false;
                 }
             }

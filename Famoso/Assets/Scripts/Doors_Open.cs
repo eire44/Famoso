@@ -12,7 +12,7 @@ public class Doors_Open : MonoBehaviour
     public float blinkDuration = 1f;
     public string doorIndicationText = "";
     AudioSource audiosource;
-
+    bool isBlinking = false;
     //bool open = false;
     //float DoorOpenAngle = -90.0f;
     //public Transform door;
@@ -34,12 +34,15 @@ public class Doors_Open : MonoBehaviour
 
     public void TriggerBlink()
     {
+        if (isBlinking) return;
         //open = true;
         StartCoroutine(BlinkCoroutine());
     }
 
     IEnumerator BlinkCoroutine()
     {
+        isBlinking = true;
+
         audiosource.Play();
         blinkImage.gameObject.SetActive(true);
         float timer = 0f;
@@ -72,5 +75,7 @@ public class Doors_Open : MonoBehaviour
 
         blinkImage.color = new Color(0f, 0f, 0f, 0f);
         blinkImage.gameObject.SetActive(false);
+
+        isBlinking = false;
     }
 }

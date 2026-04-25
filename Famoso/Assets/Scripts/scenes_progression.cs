@@ -80,7 +80,11 @@ public class scenes_progression : MonoBehaviour
 
     IEnumerator hideWorld()
     {
+        HUD.SetActive(false);
+        handySlots.SetActive(false);
+        Time.timeScale = 0f;
         blackScreen.gameObject.SetActive(true);
+        blackScreen.color = new Color(0f, 0f, 0f, 1f);
         float timer = 0f;
 
         while (timer < shadowDuration)
@@ -90,17 +94,21 @@ public class scenes_progression : MonoBehaviour
             yield return null;
         }
 
-        blackScreen.color = new Color(0f, 0f, 0f, 1f);
+        Time.timeScale = 1f;
         gameCompletedScreen.SetActive(true);
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         blackScreen.gameObject.SetActive(false);
-        HUD.SetActive(false);
-        handySlots.SetActive(false);
+        blackScreen.color = new Color(0f, 0f, 0f, 0f);
     }
 
     IEnumerator showSentence(string sentence)
     {
         progressionSentence.text = sentence;
         progressionSentence.gameObject.SetActive(true);
+        progressionSentence.color = new Color(1f, 1f, 1f, 1f);
         float timer = 0f;
 
         while (timer < shadowDuration)
@@ -110,7 +118,8 @@ public class scenes_progression : MonoBehaviour
             yield return null;
         }
 
-        progressionSentence.color = new Color(1f, 1f, 1f, 1f);
+
+        progressionSentence.color = new Color(1f, 1f, 1f, 0f);
         progressionSentence.gameObject.SetActive(false);
     }
 }

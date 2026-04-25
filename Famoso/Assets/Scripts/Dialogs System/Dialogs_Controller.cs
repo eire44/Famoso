@@ -41,14 +41,10 @@ public class Dialogs_Controller : MonoBehaviour
             } else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Characters"))
             {
                 txtInstructions.gameObject.SetActive(false);
+                audio_Characters.Play();
                 CharactersTexts characterSign = hit.collider.gameObject.GetComponent<CharactersTexts>();
                 if (characterSign != null)
                 {
-                    //if(characterSign.firstTimeViewed)
-                    //{
-                    //    characterSign.firstTimeViewed = false;
-                        audio_Characters.Play();
-                    //}
                     showIndication(characterSign.signIndicationText);
                 }
             }
@@ -88,7 +84,7 @@ public class Dialogs_Controller : MonoBehaviour
             StopCoroutine(dialogueCoroutine);
 
         dialogIndex = 0;
-        if(dialogs[roomIndex].dialogsSet != null)
+        if(roomIndex < dialogs.Count)
         {
             dialogueCoroutine = StartCoroutine(ShowDialogue(dialogs[roomIndex].dialogsSet));
         }

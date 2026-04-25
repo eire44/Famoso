@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class GameManager : MonoBehaviour
     int roomIndex = 0;
     scenes_progression scenes_Progression;
 
+    public AudioSource audioSource_Click;
+    public string nombreEscena = "MainMenu";
+    bool gameEnded = false;
     private void Start()
     {
         doors_controller = FindObjectOfType<Doors_Controller>();
@@ -30,9 +34,13 @@ public class GameManager : MonoBehaviour
 
     public void changeRoom()
     {
+        if (gameEnded) return;
+
+        roomIndex++;
+        Debug.Log("new room number " + roomIndex);
         if (roomIndex < rooms_PaintableObjects.Length)
         {
-            roomIndex++;
+            Debug.Log("entered next room");
             doors_controller.paintableObjects = rooms_PaintableObjects[roomIndex];
 
             CharacterController cc = player.GetComponent<CharacterController>();
@@ -47,8 +55,16 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            gameEnded = true;
+            Debug.Log("ending starting");
+
             UI_Controller.gameCompleted = true;
             scenes_Progression.triggerHideWorld();
         }
+    }
+    public void Jugar()
+    {
+        audioSource_Click.Play();
+        SceneManager.LoadScene(nombreEscena);
     }
 }
