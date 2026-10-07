@@ -7,12 +7,9 @@ using UnityEngine.UI;
 public class Doors_Open : MonoBehaviour
 {
     public Sprite characterToSave;
-    public GameManager gameManager;
-    public Image blinkImage;
-    public float blinkDuration = 1f;
-    public string doorIndicationText = "";
     AudioSource audiosource;
-    bool isBlinking = false;
+    public BlinkController blinkController;
+    public string doorIndicationText = "";
     //bool open = false;
     //float DoorOpenAngle = -90.0f;
     //public Transform door;
@@ -32,50 +29,9 @@ public class Doors_Open : MonoBehaviour
         //}
     }
 
-    public void TriggerBlink()
+    public void callTriggerBlink()
     {
-        if (isBlinking) return;
-        //open = true;
-        StartCoroutine(BlinkCoroutine());
+        blinkController.TriggerBlink(audiosource);
     }
-
-    IEnumerator BlinkCoroutine()
-    {
-        isBlinking = true;
-
-        audiosource.Play();
-        blinkImage.gameObject.SetActive(true);
-        float timer = 0f;
-
-        while (timer < blinkDuration)
-        {
-            timer += Time.deltaTime;
-
-            float alpha = 0f + (timer / blinkDuration);
-            blinkImage.color = new Color(0f, 0f, 0f, alpha);
-
-            yield return null;
-        }
-
-        gameManager.changeRoom();
-
-        timer = 0f;
-
-        blinkImage.color = new Color(0f, 0f, 0f, 1f);
-
-        while (timer < blinkDuration)
-        {
-            timer += Time.deltaTime;
-
-            float alpha = 1f - (timer / blinkDuration);
-            blinkImage.color = new Color(0f, 0f, 0f, alpha);
-
-            yield return null;
-        }
-
-        blinkImage.color = new Color(0f, 0f, 0f, 0f);
-        blinkImage.gameObject.SetActive(false);
-
-        isBlinking = false;
-    }
+    
 }

@@ -18128,9 +18128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterToSave: {fileID: 21300000, guid: b70a493a652130d48b65c5e89e6036ba, type: 3}
-  gameManager: {fileID: 838211657}
-  blinkImage: {fileID: 641729847}
-  blinkDuration: 1
+  blinkController: {fileID: 897199444}
   doorIndicationText: For my final act, I want to unleash my obsessions by immersing
     myself in them. I want the color to be absolute.
 --- !u!82 &222617691
@@ -54673,7 +54671,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &677252505
 Transform:
   m_ObjectHideFlags: 0
@@ -68774,6 +68772,11 @@ MonoBehaviour:
   - {fileID: 1250789747}
   - {fileID: 243253914}
   - {fileID: 1670483645}
+  rooms:
+  - {fileID: 1450762994}
+  - {fileID: 677252504}
+  - {fileID: 978528856}
+  - {fileID: 853397190}
   rooms_PaintableObjects:
   - {fileID: 547007536}
   - {fileID: 1298225087}
@@ -70759,7 +70762,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &853397191
 Transform:
   m_ObjectHideFlags: 0
@@ -73517,6 +73520,7 @@ GameObject:
   - component: {fileID: 897199442}
   - component: {fileID: 897199441}
   - component: {fileID: 897199443}
+  - component: {fileID: 897199444}
   m_Layer: 0
   m_Name: UI Controller
   m_TagString: Untagged
@@ -73596,6 +73600,21 @@ MonoBehaviour:
   gameCompletedScreen: {fileID: 18246196}
   HUD: {fileID: 675776535}
   handySlots: {fileID: 1550744526}
+--- !u!114 &897199444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897199440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb32f2f846d22e47bc5c122df96c775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkImage: {fileID: 641729847}
+  gameManager: {fileID: 838211657}
+  blinkDuration: 1
 --- !u!1001 &899971436
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80351,7 +80370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &978528857
 Transform:
   m_ObjectHideFlags: 0
@@ -85715,9 +85734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterToSave: {fileID: 21300000, guid: b70a493a652130d48b65c5e89e6036ba, type: 3}
-  gameManager: {fileID: 838211657}
-  blinkImage: {fileID: 641729847}
-  blinkDuration: 1
+  blinkController: {fileID: 897199444}
   doorIndicationText: I feel like filling everything with color would help me.
 --- !u!82 &1035737305
 AudioSource:
@@ -165410,9 +165427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterToSave: {fileID: 21300000, guid: b70a493a652130d48b65c5e89e6036ba, type: 3}
-  gameManager: {fileID: 838211657}
-  blinkImage: {fileID: 641729847}
-  blinkDuration: 1
+  blinkController: {fileID: 897199444}
   doorIndicationText: I will feel free to move on when this little infinity is filled
     with colors and patterns, like my own mind.
 --- !u!82 &1996880119
@@ -170880,9 +170895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterToSave: {fileID: 21300000, guid: b70a493a652130d48b65c5e89e6036ba, type: 3}
-  gameManager: {fileID: 838211657}
-  blinkImage: {fileID: 641729847}
-  blinkDuration: 1
+  blinkController: {fileID: 897199444}
   doorIndicationText: I don't think I should leave yet, I still don't feel safe here.
 --- !u!65 &2057862876
 BoxCollider:

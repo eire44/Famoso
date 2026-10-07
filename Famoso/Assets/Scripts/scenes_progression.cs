@@ -22,11 +22,6 @@ public class scenes_progression : MonoBehaviour
         triggerShowWorld();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void triggerShowWorld()
     {

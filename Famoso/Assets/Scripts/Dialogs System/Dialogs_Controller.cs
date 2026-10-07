@@ -50,14 +50,12 @@ public class Dialogs_Controller : MonoBehaviour
 
                 if (characterSign != null)
                 {
-                    Debug.Log("COLISIONA");
                     txtInstructions.gameObject.SetActive(false);
 
                     if(audioFlag)
                     {
                         audioFlag = false;
                         audio_Characters.Play();
-                        Debug.Log("Audio playing: " + audio_Characters.isPlaying);
                     }
                     showIndication(characterSign.signIndicationText);
                 }

@@ -40,7 +40,7 @@ public class Doors_Controller : MonoBehaviour
 
                     if (checkIfAllPainted())
                     {
-                        door.TriggerBlink();
+                        door.callTriggerBlink();
                     }
                     else
                     {

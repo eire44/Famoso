@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public Transform[] playerPositions;
+    public GameObject[] rooms;
     public GameObject[] rooms_PaintableObjects;
     public Transform player;
     Doors_Controller doors_controller;
@@ -38,10 +39,13 @@ public class GameManager : MonoBehaviour
 
         roomIndex++;
         Debug.Log("new room number " + roomIndex);
-        if (roomIndex < rooms_PaintableObjects.Length)
+        if (roomIndex < rooms.Length)
         {
             Debug.Log("entered next room");
             doors_controller.paintableObjects = rooms_PaintableObjects[roomIndex];
+
+            rooms[roomIndex - 1].SetActive(false);
+            rooms[roomIndex].SetActive(true);
 
             CharacterController cc = player.GetComponent<CharacterController>();
 
