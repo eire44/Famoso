@@ -5,17 +5,16 @@ using UnityEngine.UI;
 
 public class BlinkController : MonoBehaviour
 {
-    public Image blinkImage;
-    public GameManager gameManager;
-    public float blinkDuration = 1f;
+    [SerializeField] Image blinkImage;
+    [SerializeField] GameManager gameManager;
+    [SerializeField] float blinkDuration = 1f;
     bool isBlinking = false;
-
 
 
     public void TriggerBlink(AudioSource doorAudio)
     {
         if (isBlinking) return;
-        //open = true;
+        
         StartCoroutine(BlinkCoroutine(doorAudio));
     }
 

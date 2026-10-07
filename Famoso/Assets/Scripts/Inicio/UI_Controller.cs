@@ -6,17 +6,17 @@ using TMPro;
 
 public class UI_Controller : MonoBehaviour
 {
-    public AudioSource audioSource_Click;
+    [SerializeField] AudioSource audioSource_Click;
 
-    public Transform pInicio;
-    public Transform pCreditos;
-    public TMP_Text gameTitle;
-    public TMP_Text gameTitle_Shadow;
+    [SerializeField] Transform pInicio;
+    [SerializeField] Transform pCreditos;
+    [SerializeField] TMP_Text gameTitle;
+    [SerializeField] TMP_Text gameTitle_Shadow;
     //public Transform pOpciones;
 
-    public string nombreEscena;
-    public string startTitle = "The Infinite Obsession with Expressing Myself";
-    public string endTitle = "Yayoi´s Mind";
+    [SerializeField] string nombreEscena;
+    [SerializeField] string startTitle = "The Infinite Obsession with Expressing Myself";
+    [SerializeField] string endTitle = "Yayoi´s Mind";
     public static bool gameCompleted = false;
 
     private void Start()

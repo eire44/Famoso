@@ -5,32 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Colecciones")]
     public Transform[] playerPositions;
     public GameObject[] rooms;
     public GameObject[] rooms_PaintableObjects;
-    public Transform player;
-    Doors_Controller doors_controller;
-    Dialogs_Controller dialogs_controller;
-    int roomIndex = 0;
-    scenes_progression scenes_Progression;
 
-    public AudioSource audioSource_Click;
+    [Header("Referencias")]
+    [SerializeField] Doors_Controller doors_controller;
+    [SerializeField] Dialogs_Controller dialogs_controller;
+    [SerializeField] scenes_progression scenes_Progression;
+    [SerializeField] CharacterController characterController;
+    [SerializeField] Transform player;
+    [SerializeField] AudioSource audioSource_Click;
+
     public string nombreEscena = "MainMenu";
     bool gameEnded = false;
+    int roomIndex = 0;
     private void Start()
     {
-        doors_controller = FindObjectOfType<Doors_Controller>();
-        dialogs_controller = FindObjectOfType<Dialogs_Controller>();
         doors_controller.paintableObjects = rooms_PaintableObjects[roomIndex];
         player.position = playerPositions[roomIndex].position;
-        scenes_Progression = FindObjectOfType<scenes_progression>();
-
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
         dialogs_controller.changeDialogsSet(roomIndex);
-        //dialogs_controller.startMonologue();
     }
 
     public void changeRoom()
@@ -38,29 +37,25 @@ public class GameManager : MonoBehaviour
         if (gameEnded) return;
 
         roomIndex++;
-        Debug.Log("new room number " + roomIndex);
+
         if (roomIndex < rooms.Length)
         {
-            Debug.Log("entered next room");
             doors_controller.paintableObjects = rooms_PaintableObjects[roomIndex];
 
             rooms[roomIndex - 1].SetActive(false);
             rooms[roomIndex].SetActive(true);
 
-            CharacterController cc = player.GetComponent<CharacterController>();
-
-            if (cc != null) cc.enabled = false;
+            if (characterController != null) characterController.enabled = false;
 
             player.position = playerPositions[roomIndex].position;
 
-            if (cc != null) cc.enabled = true;
+            if (characterController != null) characterController.enabled = true;
 
             dialogs_controller.changeDialogsSet(roomIndex);
         }
         else
         {
             gameEnded = true;
-            Debug.Log("ending starting");
 
             UI_Controller.gameCompleted = true;
             scenes_Progression.triggerHideWorld();

@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class Mov_Controller : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float gravity = -9.81f;
+    [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float gravity = -9.81f;
 
     [HideInInspector] public float mouseSensitivity = 300f;
-    public Transform cameraTransform;
+    [SerializeField] Transform cameraTransform;
 
-    private float xRotation = 0f;
-    private Vector3 velocity;
-    private CharacterController controller;
+    float xRotation = 0f;
+    Vector3 velocity;
+    CharacterController controller;
 
     Vector3 startPosition;
-    public float fallLimit = -10f;
+    //public float fallLimit = -10f;
 
     void Start()
     {
@@ -73,14 +74,12 @@ public class Mov_Controller : MonoBehaviour
 
     void Respawn()
     {
-        CharacterController cc = GetComponent<CharacterController>();
-
-        if (cc != null)
-            cc.enabled = false;
+        if (controller != null)
+            controller.enabled = false;
 
         transform.position = startPosition;
 
-        if (cc != null)
-            cc.enabled = true;
+        if (controller != null)
+            controller.enabled = true;
     }
 }
