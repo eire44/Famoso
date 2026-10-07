@@ -37,9 +37,11 @@ public class Remember_Paint_Mechanics : MonoBehaviour
                 } 
                 else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Paintable Objects"))
                 {
-                    SelectSlot(currentSelectedSlot_Index);
-                    Renderer rend = hit.collider.transform.GetComponent<Renderer>();
-                    rend.material.mainTexture = currentSelectedTexture;
+                    if (SelectSlot(currentSelectedSlot_Index))
+                    {
+                        Renderer rend = hit.collider.transform.GetComponent<Renderer>();
+                        rend.material.mainTexture = currentSelectedTexture;
+                    }
                 }
                 
             }
@@ -49,15 +51,9 @@ public class Remember_Paint_Mechanics : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
             {
-                int previousSelectedIndex = currentSelectedSlot_Index;
-
                 //MO_TextureController.handySlots[currentSelectedSlot_Index].GetComponent<Outline>().enabled = false;
                 currentSelectedSlot_Index = i;
                 SelectSlot(currentSelectedSlot_Index);
-                //if (SelectSlot(currentSelectedSlot_Index))
-                //{
-                //    outlineSelectedHandySlot(previousSelectedIndex, false);
-                //}
             }
         }
     }
@@ -66,6 +62,7 @@ public class Remember_Paint_Mechanics : MonoBehaviour
     {
         currentSelectedSlot = MO_TextureController.handySlots[i];
 
+        currentSelectedTexture = null;
 
         if (currentSelectedSlot.childCount == 1)
         {
@@ -86,6 +83,8 @@ public class Remember_Paint_Mechanics : MonoBehaviour
                 return true;
             }
         }
+
+        currentSelectedSlot.GetComponent<Outline>().enabled = false;
 
         return false;
     }
